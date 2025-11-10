@@ -1,35 +1,56 @@
 package com.school;
 
-public class AttendanceRecord implements Storable {
-    private Student student; // Changed from studentId to Student object
-    private Course course;   // Changed from courseId to Course object
-    private String status;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
+public class AttendanceRecord implements Storable {
+    private Student student;
+    private Course course;
+    private String status;
+    private LocalDateTime timestamp;
+    
     public AttendanceRecord(Student student, Course course, String status) {
         this.student = student;
         this.course = course;
-        if ("Present".equalsIgnoreCase(status) || "Absent".equalsIgnoreCase(status)) {
-            this.status = status;
-        } else {
-            this.status = "Invalid";
-            System.out.println("Warning: Invalid attendance status provided ('" + status + "'). Set to 'Invalid'.");
-        }
+        this.status = status;
+        this.timestamp = LocalDateTime.now();
     }
-
-    public Student getStudent() { return student; } // Getter for Student object
-    public Course getCourse() { return course; }   // Getter for Course object
-    public String getStatus() { return status; }
-
-    public void displayRecord() {
-        // Now we can get details directly from the objects
-        System.out.println("Attendance: Student " + student.getName() + " (ID: " + student.getId() + ")" +
-                           " in Course " + course.getCourseName() + " (ID: C" + course.getCourseId() + ")" +
-                           " - Status: " + status);
+    
+    // Getters
+    public Student getStudent() {
+        return student;
     }
-
+    
+    public Course getCourse() {
+        return course;
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+    
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+    
+    // Setters
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
     @Override
     public String toDataString() {
-        // Save IDs for simplicity in file storage
-        return student.getId() + "," + course.getCourseId() + "," + status;
+        // Format: studentId,courseId,status,timestamp
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return student.getId() + "," + course.getCourseId() + "," + status + "," + timestamp.format(formatter);
+    }
+    
+    @Override
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return String.format("Student: %s (ID: %d) | Course: %s (ID: C%d) | Status: %s | Time: %s",
+                student.getName(), student.getId(),
+                course.getCourseName(), course.getCourseId(),
+                status, timestamp.format(formatter));
     }
 }
