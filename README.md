@@ -1,4 +1,4 @@
-﻿School Attendance System
+School Attendance System
 This is a 10-part code-along project to build a console-based school attendance system in Java.
 
 ## Session 1: Introduction and Orientation
