@@ -34,8 +34,8 @@ public class Main {
         registrationService.registerTeacher("Dr. Emily Carter", "Physics");
         registrationService.registerStaff("Mr. John Davis", "Librarian");
 
-        Course course1 = registrationService.createCourse("Intro to Programming");
-        Course course2 = registrationService.createCourse("Data Structures");
+        Course course1 = registrationService.createCourse("Intro to Programming", 30);
+        Course course2 = registrationService.createCourse("Data Structures", 25);
 
         // Display directory using data from RegistrationService
         displaySchoolDirectory(registrationService);

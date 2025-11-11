@@ -1,2 +1,2 @@
-101,Intro to Programming
-102,Data Structures
+101,Intro to Programming,30
+102,Data Structures,25
